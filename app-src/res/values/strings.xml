@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RUSH</string>
+    <string name="accessibility_description">Automates starting and stopping Android Auto Head Unit Server</string>
+    <string name="widget_name">RUSH Head Unit Toggle</string>
+    <string name="widget_description">Kontrol satu-sentuhan ON/OFF Android Auto Head Unit Server</string>
+</resources>
