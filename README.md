@@ -6,6 +6,7 @@ Aplikasi Android mandiri (*standalone, lightweight, zero third-party dependencie
 
 ## Fitur Utama
 
+- **Perintah Suara (Assistant, Gemini, & Bixby):** Mendukung perintah suara `"Nyalakan Server Mobil"` dan `"Matikan Server Mobil"` melalui App Shortcuts, deep links (`aaserver://start`, `aaserver://stop`), serta Bixby Routines.
 - **Tactile Circular Power Button & Live Sync:** Kontrol tombol power melingkar yang intuitif (hijau untuk menyalakan saat mati, merah untuk mematikan saat aktif) dengan sinkronisasi status real-time antara aplikasi dan widget.
 - **Tema Light Mode & Dark Widget:** Desain aplikasi utama modern bertema terang (*light theme*), dengan homescreen widget tetap mempertahankan gaya *dark mode* elegan.
 - **Icon Resmi Android Auto:** Tampilan launcher bersih dan profesional dengan icon khas Android Auto multi-densitas.
@@ -51,7 +52,7 @@ Skrip akan mengeksekusi tahapan:
 2. `javac` terhadap API level 34 (`android.jar`).
 3. Konversi bytecode menggunakan D8 (`r8.jar`).
 4. Packaging APK dan penandatanganan kriptografis v1/v2/v3 menggunakan `uber-apk-signer`.
-5. Output APK tersimpan di `outputs/AndroidAutoServer-v1.4.0.apk` dan `AndroidAutoServer.apk`.
+5. Output APK tersimpan di `outputs/AndroidAutoServer-v1.5.0.apk` dan `AndroidAutoServer.apk`.
 
 ---
 

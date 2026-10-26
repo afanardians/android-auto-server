@@ -76,6 +76,38 @@ public class MainActivity extends Activity {
         setupBluetoothSection();
         setupToggleButton();
         setupWidgetPinning();
+        setupDynamicShortcuts();
+    }
+
+    private void setupDynamicShortcuts() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+            try {
+                android.content.pm.ShortcutManager sm = getSystemService(android.content.pm.ShortcutManager.class);
+                if (sm != null) {
+                    Intent startIntent = new Intent(VoiceActionActivity.ACTION_VOICE_START);
+                    startIntent.setClass(this, VoiceActionActivity.class);
+
+                    android.content.pm.ShortcutInfo startShortcut = new android.content.pm.ShortcutInfo.Builder(this, "start_server")
+                            .setShortLabel("Nyalakan Server Mobil")
+                            .setLongLabel("Nyalakan Server Mobil")
+                            .setIcon(android.graphics.drawable.Icon.createWithResource(this, R.drawable.ic_power_on))
+                            .setIntent(startIntent)
+                            .build();
+
+                    Intent stopIntent = new Intent(VoiceActionActivity.ACTION_VOICE_STOP);
+                    stopIntent.setClass(this, VoiceActionActivity.class);
+
+                    android.content.pm.ShortcutInfo stopShortcut = new android.content.pm.ShortcutInfo.Builder(this, "stop_server")
+                            .setShortLabel("Matikan Server Mobil")
+                            .setLongLabel("Matikan Server Mobil")
+                            .setIcon(android.graphics.drawable.Icon.createWithResource(this, R.drawable.ic_power_off))
+                            .setIntent(stopIntent)
+                            .build();
+
+                    sm.setDynamicShortcuts(java.util.Arrays.asList(startShortcut, stopShortcut));
+                }
+            } catch (Exception ignored) {}
+        }
     }
 
     private void setupBluetoothSection() {

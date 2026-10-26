@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.afan.headunitserver"
-    android:versionCode="7"
-    android:versionName="1.4.0">
+    android:versionCode="8"
+    android:versionName="1.5.0">
 
     <uses-sdk
         android:minSdkVersion="26"
@@ -30,6 +30,41 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+
+        <activity
+            android:name=".VoiceActionActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="com.afan.headunitserver.ACTION_VOICE_START" />
+                <action android:name="com.afan.headunitserver.ACTION_VOICE_STOP" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+
+            <!-- Deep link support: aaserver://start and aaserver://stop -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="aaserver" />
+            </intent-filter>
+
+            <!-- Assistant / Gemini / Voice Search Intent -->
+            <intent-filter>
+                <action android:name="com.google.android.gms.actions.SEARCH_ACTION" />
+                <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.VOICE_COMMAND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
         </activity>
 

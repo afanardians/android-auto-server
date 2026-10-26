@@ -4,4 +4,8 @@
     <string name="accessibility_description">Automates starting and stopping Android Auto Head Unit Server</string>
     <string name="widget_name">Android Auto Server Toggle</string>
     <string name="widget_description">Kontrol satu-sentuhan ON/OFF Android Auto Head Unit Server</string>
+    <string name="shortcut_start_short">Nyalakan Server Mobil</string>
+    <string name="shortcut_start_long">Nyalakan Server Mobil</string>
+    <string name="shortcut_stop_short">Matikan Server Mobil</string>
+    <string name="shortcut_stop_long">Matikan Server Mobil</string>
 </resources>

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0] - 2026-10-26
+
+### Added
+- **Integrasi Perintah Suara (Google Assistant, Gemini, & Samsung Bixby):**
+  - Mendaftarkan App Shortcuts statis (`shortcuts.xml`) dan dinamis (`ShortcutManager`):
+    - `"Nyalakan Server Mobil"`: Menjalankan aksi `ACTION_VOICE_START` untuk menyalakan Head Unit Server.
+    - `"Matikan Server Mobil"`: Menjalankan aksi `ACTION_VOICE_STOP` untuk mematikan Head Unit Server.
+  - Membuat `VoiceActionActivity` (translucent & headless) yang memproses intent suara tanpa mengganggu tampilan layar, memicu otomasi `HeadUnitAccessibilityService`, menampilkan Toast informatif, dan memperbarui status widget.
+  - Mendukung Deep Links (`aaserver://start` dan `aaserver://stop`) serta pencarian suara Google Assistant (`com.google.android.gms.actions.SEARCH_ACTION`).
+- **Kompilasi & Pemasangan:**
+  - Build rilis baru `outputs/AndroidAutoServer-v1.5.0.apk` (`versionCode 8`, `versionName 1.5.0`).
+  - Sukses dipasang langsung ke Samsung Galaxy S26 Ultra via wireless ADB dan diverifikasi melalui simulasi intent suara.
+
 ## [1.4.0] - 2026-10-26
 
 ### Changed

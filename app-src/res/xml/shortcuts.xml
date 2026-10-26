@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <capability android:name="actions.intent.OPEN_APP_FEATURE">
+        <intent
+            android:action="com.afan.headunitserver.ACTION_VOICE_START"
+            android:targetPackage="com.afan.headunitserver"
+            android:targetClass="com.afan.headunitserver.VoiceActionActivity" />
+    </capability>
+
+    <shortcut
+        android:shortcutId="start_server"
+        android:enabled="true"
+        android:icon="@drawable/ic_power_on"
+        android:shortcutShortLabel="@string/shortcut_start_short"
+        android:shortcutLongLabel="@string/shortcut_start_long">
+        <intent
+            android:action="com.afan.headunitserver.ACTION_VOICE_START"
+            android:targetPackage="com.afan.headunitserver"
+            android:targetClass="com.afan.headunitserver.VoiceActionActivity" />
+        <categories android:name="android.intent.category.DEFAULT" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="stop_server"
+        android:enabled="true"
+        android:icon="@drawable/ic_power_off"
+        android:shortcutShortLabel="@string/shortcut_stop_short"
+        android:shortcutLongLabel="@string/shortcut_stop_long">
+        <intent
+            android:action="com.afan.headunitserver.ACTION_VOICE_STOP"
+            android:targetPackage="com.afan.headunitserver"
+            android:targetClass="com.afan.headunitserver.VoiceActionActivity" />
+        <categories android:name="android.intent.category.DEFAULT" />
+    </shortcut>
+</shortcuts>
