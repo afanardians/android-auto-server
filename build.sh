@@ -49,7 +49,7 @@ java -jar "$TOOLS_DIR/uber-apk-signer.jar" \
   -o "$BUILD_DIR/signed"
 
 mkdir -p "$DIR/outputs"
-cp "$BUILD_DIR/signed/app-aligned-debugSigned.apk" "$DIR/outputs/AndroidAutoServer-v1.3.0.apk"
+cp "$BUILD_DIR/signed/app-aligned-debugSigned.apk" "$DIR/outputs/AndroidAutoServer-v1.4.0.apk"
 cp "$BUILD_DIR/signed/app-aligned-debugSigned.apk" "$DIR/AndroidAutoServer.apk"
 
-echo "==> Build successful: $DIR/outputs/AndroidAutoServer-v1.3.0.apk"
+echo "==> Build successful: $DIR/outputs/AndroidAutoServer-v1.4.0.apk"

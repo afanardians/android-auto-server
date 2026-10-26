@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2026-10-26
+
+### Changed
+- **Penyelarasan Warna Label Status:**
+  - Label `"🔴 SERVER MATI — Ketuk untuk Menyalakan"` diubah menjadi warna **MERAH** (`#DC2626`).
+  - Label `"🟢 SERVER AKTIF — Ketuk untuk Mematikan"` diubah menjadi warna **HIJAU** (`#059669`).
+- **Sinkronisasi Dua Arah Aplikasi ke Widget (Real-time App-to-Widget Sync):**
+  - Menghubungkan langsung `MainActivity` ke `HeadUnitWidgetProvider` melalui method `updateAllWidgetsDirect()`.
+  - Setiap kali aplikasi mendeteksi perubahan status (saat dibuka, polling berkala 2.5 detik, maupun setelah tombol power ditekan), status di homescreen widget secara otomatis ikut berubah secara instan (menyala saat aplikasi menyala, dan mati saat aplikasi mati).
+  - Menambahkan callback update widget di `HeadUnitAccessibilityService` dan `BluetoothReceiver` saat otomasi berhasil dijalankan.
+- **Kompilasi & Pemasangan:**
+  - Build rilis baru `outputs/AndroidAutoServer-v1.4.0.apk` (`versionCode 7`, `versionName 1.4.0`).
+  - Sukses dipasang langsung ke Samsung Galaxy S26 Ultra via wireless ADB.
+
 ## [1.3.0] - 2026-10-26
 
 ### Added

@@ -34,6 +34,9 @@ public class BluetoothReceiver extends BroadcastReceiver {
             if (autoEnabled && deviceName != null && deviceName.toLowerCase().contains(targetBt)) {
                 Log.i(TAG, "Target Bluetooth matched! Triggering Head Unit Server start...");
                 HeadUnitAccessibilityService.triggerStart(context);
+                new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(
+                        () -> HeadUnitWidgetProvider.refreshAllWidgets(context), 2000
+                );
             }
         }
     }

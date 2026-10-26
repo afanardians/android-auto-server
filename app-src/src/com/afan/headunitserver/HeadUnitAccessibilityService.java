@@ -120,6 +120,8 @@ public class HeadUnitAccessibilityService extends AccessibilityService {
 
                 // Return to home / previous screen after short delay
                 sHandler.postDelayed(() -> performGlobalAction(GLOBAL_ACTION_HOME), 300);
+                sHandler.postDelayed(() -> HeadUnitWidgetProvider.refreshAllWidgets(getApplicationContext()), 800);
+                sHandler.postDelayed(() -> HeadUnitWidgetProvider.refreshAllWidgets(getApplicationContext()), 1800);
 
                 return true;
             }

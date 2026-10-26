@@ -160,8 +160,10 @@ public class MainActivity extends Activity {
                     HeadUnitAccessibilityService.triggerStart(MainActivity.this);
                 }
 
-                // Query status after brief delay to verify execution
-                mHandler.postDelayed(() -> queryServerStatus(), 1200);
+                // Query status after brief delay to verify execution & sync widget
+                mHandler.postDelayed(() -> queryServerStatus(), 800);
+                mHandler.postDelayed(() -> queryServerStatus(), 1600);
+                mHandler.postDelayed(() -> queryServerStatus(), 2600);
             }
         });
     }
@@ -221,16 +223,19 @@ public class MainActivity extends Activity {
             tvStatus.setTextColor(0xFF059669);
             tvStatusDesc.setText("Port 5277 terbuka. Head unit mobil siap terhubung via WiFi.");
             btnPowerToggle.setImageResource(R.drawable.ic_power_off);
-            tvToggleLabel.setText("🔴 SERVER AKTIF — Ketuk untuk Mematikan");
-            tvToggleLabel.setTextColor(0xFFDC2626);
+            tvToggleLabel.setText("🟢 SERVER AKTIF — Ketuk untuk Mematikan");
+            tvToggleLabel.setTextColor(0xFF059669);
         } else {
             tvStatus.setText("⚪ TIDAK BERJALAN (MATI)");
             tvStatus.setTextColor(0xFF64748B);
             tvStatusDesc.setText("Server tidak aktif. Ketuk tombol power di atas untuk menyalakan.");
             btnPowerToggle.setImageResource(R.drawable.ic_power_on);
-            tvToggleLabel.setText("🟢 SERVER MATI — Ketuk untuk Menyalakan");
-            tvToggleLabel.setTextColor(0xFF059669);
+            tvToggleLabel.setText("🔴 SERVER MATI — Ketuk untuk Menyalakan");
+            tvToggleLabel.setTextColor(0xFFDC2626);
         }
+
+        // Sinkronisasi status aplikasi ke homescreen widget secara langsung
+        HeadUnitWidgetProvider.updateAllWidgetsDirect(this, isRunning);
     }
 
     private boolean checkAccessibility() {

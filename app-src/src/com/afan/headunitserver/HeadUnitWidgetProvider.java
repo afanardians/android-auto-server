@@ -119,4 +119,18 @@ public class HeadUnitWidgetProvider extends AppWidgetProvider {
             });
         }).start();
     }
+
+    public static void updateAllWidgetsDirect(Context context, boolean isRunning) {
+        try {
+            AppWidgetManager manager = AppWidgetManager.getInstance(context);
+            if (manager == null) return;
+            ComponentName component = new ComponentName(context, HeadUnitWidgetProvider.class);
+            int[] ids = manager.getAppWidgetIds(component);
+            if (ids != null && ids.length > 0) {
+                for (int id : ids) {
+                    updateWidgetState(context, manager, id, isRunning);
+                }
+            }
+        } catch (Exception ignored) {}
+    }
 }
