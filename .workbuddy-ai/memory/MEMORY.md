@@ -19,3 +19,6 @@ Standalone native Android application (`com.afan.headunitserver`, named **Androi
 - `HeadUnitAccessibilityService`: Background UI automation driver interacting with Android Auto developer settings.
 - `BluetoothReceiver`: BroadcastReceiver listening for Bluetooth connection events.
 - `HeadUnitWidgetProvider`: 1-tap homescreen App Widget with dynamic circular power icon.
+
+## Git & Workflow Conventions
+- **Push Policy:** Push otomatis ke GitHub dinonaktifkan. Semua perubahan, commit, dan build APK hanya disimpan di lokal. `git push` HANYA dieksekusi jika pengguna meminta secara eksplisit.
