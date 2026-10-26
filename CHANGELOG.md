@@ -1,6 +1,23 @@
-# Changelog - RUSH (Head Unit Server Controller)
+# Changelog - Android Auto Server (Head Unit Server Controller)
 
 All notable changes to this project will be documented in this file.
+
+## [1.1.0] - 2026-10-26
+
+### Added
+- **Rebranding ke "Android Auto Server":**
+  - Mengubah nama aplikasi menjadi `Android Auto Server` di `strings.xml`, `AndroidManifest.xml`, header tampilan utama, dan homescreen widget.
+- **Icon Baru Android Auto:**
+  - Mengganti icon aplikasi dengan logo panah khas Android Auto multi-densitas (`mdpi`, `hdpi`, `xhdpi`, `xxhdpi`, `xxxhdpi`, dan drawable master 512x512).
+- **Desain Tombol Power On/Off Baru:**
+  - Mengganti tombol toggle lama dengan tombol power melingkar (tactile circular button):
+    - `ic_power_off.png`: Tombol power gelap dengan simbol lingkaran merah menyala saat server OFF.
+    - `ic_power_on.png`: Tombol power gelap dengan simbol lingkaran hijau neon menyala saat server ON.
+  - Menambahkan indikator status teks dinamis di bawah tombol power (`tv_toggle_label`).
+  - Mengintegrasikan icon tombol power yang sama ke homescreen widget (`ImageButton` di `widget_headunit.xml`).
+- **Kompilasi & Pemasangan:**
+  - Build rilis baru `outputs/AndroidAutoServer-v1.1.0.apk` (`versionCode 4`, `versionName 1.1.0`).
+  - Sukses dipasang dan diverifikasi di Samsung Galaxy S26 Ultra via wireless ADB.
 
 ## [1.0.0] - 2026-10-26
 

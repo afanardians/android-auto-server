@@ -1,4 +1,4 @@
-# RUSH - Android Auto Head Unit Server Controller
+# Android Auto Server - Head Unit Server Controller
 
 Aplikasi Android mandiri (*standalone, lightweight, zero third-party dependencies*) untuk mengontrol dan mengotomasi **Android Auto Head Unit Server** di Samsung Galaxy S26 Ultra (`SM-S948B`) dan perangkat Android modern lainnya.
 
@@ -6,10 +6,11 @@ Aplikasi Android mandiri (*standalone, lightweight, zero third-party dependencie
 
 ## Fitur Utama
 
-- **Master Toggle Button:** Kontrol satu ketukan untuk Start / Stop Head Unit Server dengan indikator warna dinamis.
+- **Tactile Circular Power Button:** Kontrol tombol power melingkar dengan indikator visual menyala merah (OFF) dan hijau neon (ON).
+- **Icon Resmi Android Auto:** Tampilan launcher bersih dan profesional dengan icon khas Android Auto multi-densitas.
 - **Deteksi Real-Time Status:** Memantau status server secara aktif melalui pengecekan TCP loopback port `5277`.
 - **Otomasi Bluetooth:** Otomatis menyalakan server saat HP terhubung ke Bluetooth mobil (default: `"Rush"`), dengan dropdown pemilih perangkat paired.
-- **Homescreen Widget:** Widget ringkas di layar depan untuk kontrol 1-tap tanpa perlu membuka aplikasi.
+- **Homescreen Widget:** Widget ringkas di layar depan dengan tombol power 1-tap tanpa perlu membuka aplikasi.
 - **Otomasi Tanpa Root:** Menggunakan Android `AccessibilityService` untuk membuka developer settings Android Auto di latar belakang, menekan overflow menu, dan memilih aksi.
 
 ---
@@ -20,8 +21,8 @@ Aplikasi Android mandiri (*standalone, lightweight, zero third-party dependencie
 ├── AndroidManifest.xml       # Konfigurasi package, permission, services, & receivers
 ├── res/
 │   ├── layout/               # UI activity_main.xml & widget_headunit.xml
-│   ├── drawable/             # AMOLED dark theme cards & stateful toggle drawables
-│   ├── mipmap-*/             # Multi-density launcher icons (mdpi - xxxhdpi)
+│   ├── drawable/             # Dark AMOLED cards, ic_power_off.png, ic_power_on.png
+│   ├── mipmap-*/             # Multi-density Android Auto launcher icons
 │   ├── values/strings.xml    # String resources
 │   └── xml/                  # Metadata accessibility service & app widget
 ├── src/com/afan/headunitserver/
@@ -49,7 +50,7 @@ Skrip akan mengeksekusi tahapan:
 2. `javac` terhadap API level 34 (`android.jar`).
 3. Konversi bytecode menggunakan D8 (`r8.jar`).
 4. Packaging APK dan penandatanganan kriptografis v1/v2/v3 menggunakan `uber-apk-signer`.
-5. Output APK tersimpan di `outputs/RUSH-v1.0.0.apk` dan `RUSH.apk`.
+5. Output APK tersimpan di `outputs/AndroidAutoServer-v1.1.0.apk` dan `AndroidAutoServer.apk`.
 
 ---
 

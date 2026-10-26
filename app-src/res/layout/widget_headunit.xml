@@ -30,7 +30,7 @@
             android:id="@+id/widget_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RUSH"
+            android:text="AA Server"
             android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF" />
@@ -39,20 +39,19 @@
             android:id="@+id/widget_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Head Unit Server"
+            android:text="STATUS: MATI"
             android:textSize="11sp"
             android:textColor="#9CA3AF"
             android:layout_marginTop="2dp" />
     </LinearLayout>
 
-    <Button
+    <ImageButton
         android:id="@+id/widget_btn_toggle"
-        android:layout_width="84dp"
-        android:layout_height="42dp"
-        android:text="TOGGLE"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/widget_btn_on" />
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@drawable/ic_power_off"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:contentDescription="Toggle AA Server" />
 
 </LinearLayout>

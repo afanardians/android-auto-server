@@ -71,11 +71,11 @@ public class HeadUnitWidgetProvider extends AppWidgetProvider {
         if (isRunning) {
             views.setTextViewText(R.id.widget_status, "STATUS: AKTIF (5277)");
             views.setTextColor(R.id.widget_status, 0xFF10B981);
-            views.setTextViewText(R.id.widget_btn_toggle, "MATIKAN");
+            views.setImageViewResource(R.id.widget_btn_toggle, R.drawable.ic_power_on);
         } else {
             views.setTextViewText(R.id.widget_status, "STATUS: MATI");
             views.setTextColor(R.id.widget_status, 0xFF94A3B8);
-            views.setTextViewText(R.id.widget_btn_toggle, "NYALAKAN");
+            views.setImageViewResource(R.id.widget_btn_toggle, R.drawable.ic_power_off);
         }
 
         manager.updateAppWidget(widgetId, views);

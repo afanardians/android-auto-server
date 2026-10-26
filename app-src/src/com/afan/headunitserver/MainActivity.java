@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +35,8 @@ public class MainActivity extends Activity {
     private TextView tvStatusDesc;
     private TextView tvTargetBtLabel;
     private TextView tvLog;
-    private Button btnToggle;
+    private ImageButton btnPowerToggle;
+    private TextView tvToggleLabel;
     private Button btnPinWidget;
     private CheckBox cbAutoBt;
     private Spinner spBluetooth;
@@ -65,7 +67,8 @@ public class MainActivity extends Activity {
         tvStatusDesc = findViewById(R.id.tv_status_desc);
         tvTargetBtLabel = findViewById(R.id.tv_target_bt_label);
         tvLog = findViewById(R.id.tv_log);
-        btnToggle = findViewById(R.id.btn_toggle);
+        btnPowerToggle = findViewById(R.id.btn_power_toggle);
+        tvToggleLabel = findViewById(R.id.tv_toggle_label);
         btnPinWidget = findViewById(R.id.btn_pin_widget);
         cbAutoBt = findViewById(R.id.cb_auto_bt);
         spBluetooth = findViewById(R.id.sp_bluetooth);
@@ -142,7 +145,7 @@ public class MainActivity extends Activity {
     }
 
     private void setupToggleButton() {
-        btnToggle.setOnClickListener(new View.OnClickListener() {
+        btnPowerToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!checkAccessibility()) return;
@@ -175,7 +178,7 @@ public class MainActivity extends Activity {
                         Toast.makeText(MainActivity.this, "Silakan konfirmasi penambahan widget di layar", Toast.LENGTH_SHORT).show();
                         addLog("Permintaan pin widget ke layar depan dikirim.");
                     } else {
-                        Toast.makeText(MainActivity.this, "Tekan lama layar depan -> pilih Widget -> RUSH", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Tekan lama layar depan -> pilih Widget -> Android Auto Server", Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {
                     Toast.makeText(MainActivity.this, "Tekan lama layar depan untuk menambahkan widget", Toast.LENGTH_SHORT).show();
@@ -217,20 +220,22 @@ public class MainActivity extends Activity {
             tvStatus.setText("🟢 SEDANG BERJALAN (AKTIF)");
             tvStatus.setTextColor(0xFF10B981);
             tvStatusDesc.setText("Port 5277 terbuka. Head unit mobil siap terhubung via WiFi.");
-            btnToggle.setText("⏹ MATIKAN HEAD UNIT (AKTIF)");
-            btnToggle.setBackgroundResource(R.drawable.btn_toggle_on_bg);
+            btnPowerToggle.setImageResource(R.drawable.ic_power_on);
+            tvToggleLabel.setText("🟢 SERVER AKTIF — Ketuk untuk Mematikan");
+            tvToggleLabel.setTextColor(0xFF10B981);
         } else {
             tvStatus.setText("⚪ TIDAK BERJALAN (MATI)");
             tvStatus.setTextColor(0xFF94A3B8);
-            tvStatusDesc.setText("Server tidak aktif. Tekan tombol toggle di bawah untuk menyalakan.");
-            btnToggle.setText("▶ NYALAKAN HEAD UNIT (OFF)");
-            btnToggle.setBackgroundResource(R.drawable.btn_toggle_off_bg);
+            tvStatusDesc.setText("Server tidak aktif. Ketuk tombol power di atas untuk menyalakan.");
+            btnPowerToggle.setImageResource(R.drawable.ic_power_off);
+            tvToggleLabel.setText("🔴 SERVER MATI — Ketuk untuk Menyalakan");
+            tvToggleLabel.setTextColor(0xFFEF4444);
         }
     }
 
     private boolean checkAccessibility() {
         if (!HeadUnitAccessibilityService.isRunning()) {
-            Toast.makeText(this, "Aktifkan 'RUSH' di pengaturan Aksesibilitas", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Aktifkan 'Android Auto Server' di pengaturan Aksesibilitas", Toast.LENGTH_LONG).show();
             try {
                 startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
             } catch (Exception ignored) {}

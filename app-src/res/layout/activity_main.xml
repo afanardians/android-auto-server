@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Header with RUSH Logo -->
+        <!-- Header with App Logo -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,15 +36,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="RUSH"
-                    android:textSize="22sp"
+                    android:text="Android Auto Server"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Android Auto Head Unit Controller v1.0.0"
+                    android:text="Head Unit Server Controller v1.1.0"
                     android:textSize="12sp"
                     android:textColor="#94A3B8" />
             </LinearLayout>
@@ -87,33 +87,43 @@
                 android:layout_marginTop="6dp" />
         </LinearLayout>
 
-        <!-- Card 2: Master Toggle Button -->
+        <!-- Card 2: Master Power Button -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:gravity="center_horizontal"
             android:background="@drawable/card_bg"
-            android:padding="18dp"
+            android:padding="22dp"
             android:layout_marginBottom="16dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="KONTROL TOGGLE SERVER"
+                android:text="KONTROL POWER SERVER"
                 android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="#64748B"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="16dp" />
 
-            <Button
-                android:id="@+id/btn_toggle"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:text="⚪ NYALAKAN SERVER (OFF)"
-                android:textSize="16sp"
+            <ImageButton
+                android:id="@+id/btn_power_toggle"
+                android:layout_width="148dp"
+                android:layout_height="148dp"
+                android:src="@drawable/ic_power_off"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:contentDescription="Power Toggle Button" />
+
+            <TextView
+                android:id="@+id/tv_toggle_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔴 SERVER MATI — Ketuk untuk Menyalakan"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/btn_toggle_off_bg" />
+                android:textColor="#EF4444"
+                android:layout_marginTop="16dp" />
         </LinearLayout>
 
         <!-- Card 3: Bluetooth Automation Configuration -->
@@ -199,7 +209,7 @@
                 android:id="@+id/btn_pin_widget"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="📲 Pasang Widget RUSH ke Layar Depan"
+                android:text="📲 Pasang Widget ke Layar Depan"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"

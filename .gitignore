@@ -8,6 +8,7 @@ Thumbs.db
 # Temporary screenshots / dumps
 *.tmp
 rush_ui.png
+aa_server_ui.png
 app_screenshot*.png
 
 # Output APKs (optional, but keep outputs/ tracked or ignore intermediate)
