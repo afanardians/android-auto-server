@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2026-10-26
+
+### Added
+- **Icon Tombol Power Solid Red & Green Baru:**
+  - Mengganti icon tombol power dengan desain solid circular button beraura cerah:
+    - `ic_power_off.png`: Lingkaran solid merah menyala dengan simbol power putih bersih di tengah saat server OFF.
+    - `ic_power_on.png`: Lingkaran solid hijau menyala dengan simbol power putih bersih di tengah saat server ON.
+  - Penyesuaian `activity_main.xml` untuk header versi v1.2.0.
+  - Kompilasi APK rilis `outputs/AndroidAutoServer-v1.2.0.apk` (`versionCode 5`, `versionName 1.2.0`).
+  - Sukses dipasang dan diverifikasi langsung pada Samsung Galaxy S26 Ultra via wireless ADB.
+
 ## [1.1.0] - 2026-10-26
 
 ### Added

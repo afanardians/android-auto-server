@@ -50,7 +50,7 @@ Skrip akan mengeksekusi tahapan:
 2. `javac` terhadap API level 34 (`android.jar`).
 3. Konversi bytecode menggunakan D8 (`r8.jar`).
 4. Packaging APK dan penandatanganan kriptografis v1/v2/v3 menggunakan `uber-apk-signer`.
-5. Output APK tersimpan di `outputs/AndroidAutoServer-v1.1.0.apk` dan `AndroidAutoServer.apk`.
+5. Output APK tersimpan di `outputs/AndroidAutoServer-v1.2.0.apk` dan `AndroidAutoServer.apk`.
 
 ---
 
