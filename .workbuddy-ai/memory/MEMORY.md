@@ -8,6 +8,7 @@ Standalone native Android application (`com.afan.headunitserver`, named **Androi
 - **ADB Connection:** Wireless ADB on local LAN (`192.168.18.48`)
 - **Head Unit Port:** TCP `5277` (Android Auto Head Unit Server)
 - **Target Car Bluetooth:** `"Rush"` (stored in SharedPreferences `target_bt`)
+- **GitHub Repository:** `https://github.com/afanardians/android-auto-server` (`git@github.com:afanardians/android-auto-server.git`)
 
 ## Build Toolchain
 - **Location:** `~/.local/android-tools` (`aapt2`, `android.jar` API 34, `r8.jar`, `uber-apk-signer.jar`)
