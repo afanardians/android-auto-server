@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2026-10-26
+
+### Added
+- **Switch Perilaku Tombol ON / OFF:**
+  - Menukar status tampilan tombol aksi power:
+    - Saat server **MATI (OFF)**: Tombol menampilkan warna **HIJAU** (`ic_power_on`) dengan label instruksi `"🟢 SERVER MATI — Ketuk untuk Menyalakan"`.
+    - Saat server **AKTIF (ON)**: Tombol menampilkan warna **MERAH** (`ic_power_off`) dengan label instruksi `"🔴 SERVER AKTIF — Ketuk untuk Mematikan"`.
+  - Menerapkan behavior tombol yang sama pada Homescreen Widget (`HeadUnitWidgetProvider`).
+- **Tema Light Mode Aplikasi:**
+  - Mendesain ulang seluruh antarmuka aplikasi utama (`activity_main.xml`) dengan tema **Light Mode** yang modern:
+    - Background utama cerah (`#F8FAFC`).
+    - Card container putih bersih (`#FFFFFF`, border `#E2E8F0`).
+    - Tipografi dan kontras teks gelap berkelas (`#0F172A`, `#334155`, `#64748B`).
+    - Tema sistem Android: `@android:style/Theme.DeviceDefault.Light.NoActionBar`.
+    - Tombol aksi pasang widget dan log aktivitas disesuaikan dengan palet light theme.
+- **Homescreen Widget Tetap Dark Mode:**
+  - Sesuai permintaan pengguna, tema homescreen widget (`widget_headunit.xml`, `widget_bg.xml`) tetap dipertahankan dalam **Dark Mode** (`#1A1C20`, border `#363A42`, teks `#FFFFFF`).
+- **Kompilasi & Deployment:**
+  - Build rilis baru `outputs/AndroidAutoServer-v1.3.0.apk` (`versionCode 6`, `versionName 1.3.0`).
+  - Berhasil dipasang langsung ke Samsung Galaxy S26 Ultra via wireless ADB.
+
 ## [1.2.0] - 2026-10-26
 
 ### Added

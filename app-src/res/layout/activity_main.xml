@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#0F1115">
+    android:background="#F8FAFC">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,14 +39,14 @@
                     android:text="Android Auto Server"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#0F172A" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Head Unit Server Controller v1.2.0"
+                    android:text="Head Unit Server Controller v1.3.0"
                     android:textSize="12sp"
-                    android:textColor="#94A3B8" />
+                    android:textColor="#64748B" />
             </LinearLayout>
         </LinearLayout>
 
@@ -75,7 +75,7 @@
                 android:text="Memeriksa status..."
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="#94A3B8" />
+                android:textColor="#64748B" />
 
             <TextView
                 android:id="@+id/tv_status_desc"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:text="Menghubungkan ke port server lokal..."
                 android:textSize="12sp"
-                android:textColor="#94A3B8"
+                android:textColor="#64748B"
                 android:layout_marginTop="6dp" />
         </LinearLayout>
 
@@ -110,7 +110,7 @@
                 android:id="@+id/btn_power_toggle"
                 android:layout_width="148dp"
                 android:layout_height="148dp"
-                android:src="@drawable/ic_power_off"
+                android:src="@drawable/ic_power_on"
                 android:scaleType="fitCenter"
                 android:background="@null"
                 android:contentDescription="Power Toggle Button" />
@@ -119,10 +119,10 @@
                 android:id="@+id/tv_toggle_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🔴 SERVER MATI — Ketuk untuk Menyalakan"
+                android:text="🟢 SERVER MATI — Ketuk untuk Menyalakan"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="#EF4444"
+                android:textColor="#059669"
                 android:layout_marginTop="16dp" />
         </LinearLayout>
 
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:text="Otomatis Nyalakan saat Terhubung ke Mobil"
                 android:checked="true"
-                android:textColor="#E2E8F0"
+                android:textColor="#1E293B"
                 android:textSize="14sp"
                 android:layout_marginBottom="12dp" />
 
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:text="Pilih Perangkat Bluetooth Head Unit / Mobil:"
                 android:textSize="12sp"
-                android:textColor="#94A3B8"
+                android:textColor="#64748B"
                 android:layout_marginBottom="6dp" />
 
             <Spinner
@@ -176,7 +176,7 @@
                 android:text="Target Terpilih: Rush"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:textColor="#38BDF8" />
+                android:textColor="#0284C7" />
         </LinearLayout>
 
         <!-- Card 4: Home Screen Widget Integration -->
@@ -202,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:text="Gunakan widget di layar depan untuk mengontrol server secara instan satu-sentuhan kapan saja."
                 android:textSize="12sp"
-                android:textColor="#94A3B8"
+                android:textColor="#64748B"
                 android:layout_marginBottom="12dp" />
 
             <Button
@@ -213,7 +213,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
-                android:background="@drawable/spinner_bg" />
+                android:background="@drawable/btn_primary_bg" />
         </LinearLayout>
 
         <!-- Card 5: Log Console -->
@@ -238,10 +238,10 @@
                 android:id="@+id/tv_log"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="#121418"
+                android:background="@drawable/log_bg"
                 android:padding="10dp"
-                android:text="RUSH v1.0.0 siap.\nGunakan tombol toggle di atas untuk kontrol server."
-                android:textColor="#94A3B8"
+                android:text="Android Auto Server v1.3.0 siap.\nGunakan tombol toggle di atas untuk kontrol server."
+                android:textColor="#334155"
                 android:textSize="12sp"
                 android:scrollbars="vertical" />
         </LinearLayout>

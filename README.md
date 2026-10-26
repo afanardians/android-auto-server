@@ -6,7 +6,8 @@ Aplikasi Android mandiri (*standalone, lightweight, zero third-party dependencie
 
 ## Fitur Utama
 
-- **Tactile Circular Power Button:** Kontrol tombol power melingkar dengan indikator visual menyala merah (OFF) dan hijau neon (ON).
+- **Tactile Circular Power Button:** Kontrol tombol power melingkar yang intuitif (hijau untuk menyalakan saat mati, merah untuk mematikan saat aktif).
+- **Tema Light Mode & Dark Widget:** Desain aplikasi utama modern bertema terang (*light theme*), dengan homescreen widget tetap mempertahankan gaya *dark mode* elegan.
 - **Icon Resmi Android Auto:** Tampilan launcher bersih dan profesional dengan icon khas Android Auto multi-densitas.
 - **Deteksi Real-Time Status:** Memantau status server secara aktif melalui pengecekan TCP loopback port `5277`.
 - **Otomasi Bluetooth:** Otomatis menyalakan server saat HP terhubung ke Bluetooth mobil (default: `"Rush"`), dengan dropdown pemilih perangkat paired.
@@ -50,7 +51,7 @@ Skrip akan mengeksekusi tahapan:
 2. `javac` terhadap API level 34 (`android.jar`).
 3. Konversi bytecode menggunakan D8 (`r8.jar`).
 4. Packaging APK dan penandatanganan kriptografis v1/v2/v3 menggunakan `uber-apk-signer`.
-5. Output APK tersimpan di `outputs/AndroidAutoServer-v1.2.0.apk` dan `AndroidAutoServer.apk`.
+5. Output APK tersimpan di `outputs/AndroidAutoServer-v1.3.0.apk` dan `AndroidAutoServer.apk`.
 
 ---
 

@@ -1,7 +1,7 @@
 # Android Auto Server Project Memory
 
 ## Project Overview
-Standalone native Android application (`com.afan.headunitserver`, named **Android Auto Server**, v1.2.0) to automate and control Android Auto Head Unit Server on Samsung Galaxy S26 Ultra (`SM-S948B`) and modern Android versions.
+Standalone native Android application (`com.afan.headunitserver`, named **Android Auto Server**, v1.3.0) to automate and control Android Auto Head Unit Server on Samsung Galaxy S26 Ultra (`SM-S948B`) and modern Android versions.
 
 ## Target Device & Environment
 - **Device:** Samsung Galaxy S26 Ultra (Model: `SM-S948B`)
@@ -12,13 +12,13 @@ Standalone native Android application (`com.afan.headunitserver`, named **Androi
 
 ## Build Toolchain
 - **Location:** `~/.local/android-tools` (`aapt2`, `android.jar` API 34, `r8.jar`, `uber-apk-signer.jar`)
-- **Build Script:** `./build.sh` produces release signed APK (`outputs/AndroidAutoServer-v1.2.0.apk` & `AndroidAutoServer.apk`)
+- **Build Script:** `./build.sh` produces release signed APK (`outputs/AndroidAutoServer-v1.3.0.apk` & `AndroidAutoServer.apk`)
 
-## Key Components
-- `MainActivity`: UI with circular tactile power button (red OFF / green ON), real-time loopback TCP status polling, Bluetooth spinner, and widget pin launcher.
+## Key Components & UI
+- `MainActivity`: Light mode theme UI, circular power button (green when OFF to START, red when ON to STOP), real-time loopback TCP status polling, Bluetooth spinner, and widget pin launcher.
 - `HeadUnitAccessibilityService`: Background UI automation driver interacting with Android Auto developer settings.
 - `BluetoothReceiver`: BroadcastReceiver listening for Bluetooth connection events.
-- `HeadUnitWidgetProvider`: 1-tap homescreen App Widget with dynamic circular power icon.
+- `HeadUnitWidgetProvider`: 1-tap homescreen App Widget remaining strictly in Dark Mode with dynamic circular power icon.
 
 ## Git & Workflow Conventions
 - **Push Policy:** Push otomatis ke GitHub dinonaktifkan. Semua perubahan, commit, dan build APK hanya disimpan di lokal. `git push` HANYA dieksekusi jika pengguna meminta secara eksplisit.
