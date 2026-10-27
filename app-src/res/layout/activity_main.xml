@@ -44,7 +44,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Head Unit Server Controller v1.5.0"
+                    android:text="Head Unit Server Controller v1.6.0"
                     android:textSize="12sp"
                     android:textColor="#64748B" />
             </LinearLayout>
@@ -154,13 +154,31 @@
                 android:textSize="14sp"
                 android:layout_marginBottom="12dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pilih Perangkat Bluetooth Head Unit / Mobil:"
-                android:textSize="12sp"
-                android:textColor="#64748B"
-                android:layout_marginBottom="6dp" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="6dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Pilih Perangkat Bluetooth Tersambung:"
+                    android:textSize="12sp"
+                    android:textColor="#64748B" />
+
+                <TextView
+                    android:id="@+id/btn_refresh_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔄 Segarkan"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#0284C7"
+                    android:padding="4dp" />
+            </LinearLayout>
 
             <Spinner
                 android:id="@+id/sp_bluetooth"
@@ -240,7 +258,7 @@
                 android:layout_height="120dp"
                 android:background="@drawable/log_bg"
                 android:padding="10dp"
-                android:text="Android Auto Server v1.3.0 siap.\nGunakan tombol toggle di atas untuk kontrol server."
+                android:text="Android Auto Server v1.6.0 siap.\nGunakan tombol toggle di atas untuk kontrol server."
                 android:textColor="#334155"
                 android:textSize="12sp"
                 android:scrollbars="vertical" />

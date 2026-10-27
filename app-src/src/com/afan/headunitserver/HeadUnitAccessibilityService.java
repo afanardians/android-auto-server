@@ -32,27 +32,76 @@ public class HeadUnitAccessibilityService extends AccessibilityService {
     @Override
     public boolean onUnbind(Intent intent) {
         sInstance = null;
+        Log.i(TAG, "HeadUnitAccessibilityService unbound");
         return super.onUnbind(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        sInstance = null;
+        Log.i(TAG, "HeadUnitAccessibilityService destroyed");
     }
 
     public static boolean isRunning() {
         return sInstance != null;
     }
 
+    public static HeadUnitAccessibilityService getInstance() {
+        return sInstance;
+    }
+
     public static void triggerStart(Context context) {
         sPendingAction = ACTION_START;
-        launchAndroidAutoSettings(context);
-        scheduleChecks();
+        Log.i(TAG, "triggerStart called: enabling accessibility service in settings...");
+        AccessibilityHelper.enableService(context);
+
+        long delay = isRunning() ? 100 : 400;
+        sHandler.postDelayed(() -> {
+            launchAndroidAutoSettings(context);
+            scheduleChecks();
+        }, delay);
     }
 
     public static void triggerStop(Context context) {
         sPendingAction = ACTION_STOP;
-        launchAndroidAutoSettings(context);
-        scheduleChecks();
+        Log.i(TAG, "triggerStop called: ensuring service enabled for clicking stop...");
+        if (!isRunning()) {
+            AccessibilityHelper.enableService(context);
+        }
+
+        long delay = isRunning() ? 100 : 400;
+        sHandler.postDelayed(() -> {
+            launchAndroidAutoSettings(context);
+            scheduleChecks();
+        }, delay);
+
+        // Fallback: nonaktifkan layanan setelah 3.5 detik jika stop action belum selesai
+        sHandler.postDelayed(() -> {
+            if (sPendingAction == ACTION_STOP) {
+                sPendingAction = ACTION_NONE;
+                Log.i(TAG, "Fallback timer: deactivating accessibility service after stop command...");
+                disableSelfAndSetting(context.getApplicationContext());
+            }
+        }, 3500);
+    }
+
+    public static void disableSelfAndSetting(Context context) {
+        sHandler.post(() -> {
+            AccessibilityHelper.disableService(context);
+            if (sInstance != null) {
+                try {
+                    sInstance.disableSelf();
+                    Log.i(TAG, "disableSelf() executed on HeadUnitAccessibilityService");
+                } catch (Exception e) {
+                    Log.w(TAG, "Error executing disableSelf(): " + e.getMessage());
+                }
+            }
+        });
     }
 
     private static void scheduleChecks() {
-        for (int delay : new int[]{350, 750, 1200}) {
+        for (int delay : new int[]{350, 750, 1200, 1800}) {
             sHandler.postDelayed(() -> {
                 if (sInstance != null && sPendingAction != ACTION_NONE) {
                     AccessibilityNodeInfo root = sInstance.getRootInActiveWindow();
@@ -110,6 +159,7 @@ public class HeadUnitAccessibilityService extends AccessibilityService {
         String[] stopKeywords = new String[]{"stop head unit server", "hentikan server unit utama", "stop headunit server"};
 
         String[] targetKeywords = (sPendingAction == ACTION_START) ? startKeywords : stopKeywords;
+        boolean wasStop = (sPendingAction == ACTION_STOP);
 
         for (String kw : targetKeywords) {
             AccessibilityNodeInfo item = findNodeWithText(root, kw);
@@ -122,6 +172,14 @@ public class HeadUnitAccessibilityService extends AccessibilityService {
                 sHandler.postDelayed(() -> performGlobalAction(GLOBAL_ACTION_HOME), 300);
                 sHandler.postDelayed(() -> HeadUnitWidgetProvider.refreshAllWidgets(getApplicationContext()), 800);
                 sHandler.postDelayed(() -> HeadUnitWidgetProvider.refreshAllWidgets(getApplicationContext()), 1800);
+
+                if (wasStop) {
+                    // Nonaktifkan android auto server di pengaturan aksesibilitas setelah perintah matikan server
+                    sHandler.postDelayed(() -> {
+                        disableSelfAndSetting(getApplicationContext());
+                        Log.i(TAG, "Accessibility service disabled after stop command.");
+                    }, 800);
+                }
 
                 return true;
             }

@@ -1,17 +1,20 @@
 package com.afan.headunitserver;
 
+import android.Manifest;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +29,8 @@ import android.widget.Toast;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -40,6 +45,7 @@ public class MainActivity extends Activity {
     private Button btnPinWidget;
     private CheckBox cbAutoBt;
     private Spinner spBluetooth;
+    private TextView btnRefreshBt;
     private SharedPreferences prefs;
 
     private final Handler mHandler = new Handler(Looper.getMainLooper());
@@ -72,6 +78,7 @@ public class MainActivity extends Activity {
         btnPinWidget = findViewById(R.id.btn_pin_widget);
         cbAutoBt = findViewById(R.id.cb_auto_bt);
         spBluetooth = findViewById(R.id.sp_bluetooth);
+        btnRefreshBt = findViewById(R.id.btn_refresh_bt);
 
         setupBluetoothSection();
         setupToggleButton();
@@ -80,7 +87,7 @@ public class MainActivity extends Activity {
     }
 
     private void setupDynamicShortcuts() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             try {
                 android.content.pm.ShortcutManager sm = getSystemService(android.content.pm.ShortcutManager.class);
                 if (sm != null) {
@@ -104,7 +111,7 @@ public class MainActivity extends Activity {
                             .setIntent(stopIntent)
                             .build();
 
-                    sm.setDynamicShortcuts(java.util.Arrays.asList(startShortcut, stopShortcut));
+                    sm.setDynamicShortcuts(Arrays.asList(startShortcut, stopShortcut));
                 }
             } catch (Exception ignored) {}
         }
@@ -120,30 +127,86 @@ public class MainActivity extends Activity {
             }
         });
 
-        String savedTarget = prefs.getString("target_bt", "Rush");
-        tvTargetBtLabel.setText("Target Terpilih: " + savedTarget);
+        if (btnRefreshBt != null) {
+            btnRefreshBt.setOnClickListener(v -> {
+                loadBondedBluetoothDevices();
+                Toast.makeText(this, "Daftar Bluetooth diperbarui", Toast.LENGTH_SHORT).show();
+            });
+        }
 
-        List<String> deviceList = new ArrayList<>();
+        loadBondedBluetoothDevices();
+    }
+
+    private void loadBondedBluetoothDevices() {
+        Set<String> deviceSet = new LinkedHashSet<>();
+
+        // 1. Ambil dari riwayat cache SharedPreferences
+        String cachedString = prefs.getString("cached_bt_devices", "");
+        if (!cachedString.isEmpty()) {
+            for (String dev : cachedString.split(";;")) {
+                if (!dev.trim().isEmpty()) {
+                    deviceSet.add(dev.trim());
+                }
+            }
+        }
+
+        // 2. Minta izin Bluetooth runtime jika belum diberikan
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 101);
+            }
+        }
+
+        // 3. Ambil semua perangkat yang pernah terhubung / dipasangkan (Bonded Devices)
         try {
-            BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+            BluetoothManager bm = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+            BluetoothAdapter btAdapter = (bm != null) ? bm.getAdapter() : BluetoothAdapter.getDefaultAdapter();
             if (btAdapter != null) {
                 Set<BluetoothDevice> pairedDevices = btAdapter.getBondedDevices();
                 if (pairedDevices != null && !pairedDevices.isEmpty()) {
                     for (BluetoothDevice device : pairedDevices) {
-                        String name = device.getName();
+                        String name = null;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                            try {
+                                name = device.getAlias();
+                            } catch (Exception ignored) {}
+                        }
+                        if (name == null || name.trim().isEmpty()) {
+                            try {
+                                name = device.getName();
+                            } catch (Exception ignored) {}
+                        }
+                        if (name == null || name.trim().isEmpty()) {
+                            name = device.getAddress();
+                        }
                         if (name != null && !name.trim().isEmpty()) {
-                            deviceList.add(name);
+                            deviceSet.add(name.trim());
                         }
                     }
                 }
             }
         } catch (SecurityException e) {
-            addLog("Peringatan: Izin Bluetooth diperlukan untuk membaca daftar perangkat.");
+            addLog("Peringatan: Izin Bluetooth diperlukan untuk membaca perangkat.");
+        } catch (Exception e) {
+            addLog("Peringatan Bluetooth: " + e.getMessage());
         }
 
-        if (!deviceList.contains("Rush")) {
-            deviceList.add(0, "Rush");
+        // 4. Pastikan target default "Rush" selalu tersedia
+        if (!deviceSet.contains("Rush")) {
+            deviceSet.add("Rush");
         }
+
+        // 5. Simpan daftar gabungan ke SharedPreferences agar selalu ada
+        StringBuilder cacheSb = new StringBuilder();
+        for (String dev : deviceSet) {
+            if (cacheSb.length() > 0) cacheSb.append(";;");
+            cacheSb.append(dev);
+        }
+        prefs.edit().putString("cached_bt_devices", cacheSb.toString()).apply();
+
+        // 6. Update Spinner UI
+        List<String> deviceList = new ArrayList<>(deviceSet);
+        String savedTarget = prefs.getString("target_bt", "Rush");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
@@ -152,7 +215,6 @@ public class MainActivity extends Activity {
         );
         spBluetooth.setAdapter(adapter);
 
-        // Pre-select current target
         int selectedIndex = 0;
         for (int i = 0; i < deviceList.size(); i++) {
             if (deviceList.get(i).equalsIgnoreCase(savedTarget)) {
@@ -161,6 +223,7 @@ public class MainActivity extends Activity {
             }
         }
         spBluetooth.setSelection(selectedIndex);
+        tvTargetBtLabel.setText("Target Terpilih: " + savedTarget);
 
         spBluetooth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -176,17 +239,27 @@ public class MainActivity extends Activity {
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 101 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            loadBondedBluetoothDevices();
+            addLog("Izin Bluetooth diberikan. Daftar perangkat diperbarui.");
+        }
+    }
+
     private void setupToggleButton() {
         btnPowerToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!checkAccessibility()) return;
-
                 if (mIsServerRunning) {
                     addLog("⏹ Mengirim perintah STOP ke Head Unit Server...");
+                    addLog("🔒 Layanan aksesibilitas akan dinonaktifkan otomatis.");
                     Toast.makeText(MainActivity.this, "Menghentikan Server...", Toast.LENGTH_SHORT).show();
                     HeadUnitAccessibilityService.triggerStop(MainActivity.this);
                 } else {
+                    if (!ensureAccessibilityReady()) return;
+                    addLog("🔓 Mengaktifkan layanan aksesibilitas...");
                     addLog("▶ Mengirim perintah START ke Head Unit Server...");
                     Toast.makeText(MainActivity.this, "Memulai Server...", Toast.LENGTH_SHORT).show();
                     HeadUnitAccessibilityService.triggerStart(MainActivity.this);
@@ -198,6 +271,19 @@ public class MainActivity extends Activity {
                 mHandler.postDelayed(() -> queryServerStatus(), 2600);
             }
         });
+    }
+
+    private boolean ensureAccessibilityReady() {
+        if (HeadUnitAccessibilityService.isRunning() || AccessibilityHelper.isServiceEnabledInSettings(this)) {
+            return true;
+        }
+        if (AccessibilityHelper.enableService(this)) {
+            addLog("🔓 Layanan aksesibilitas berhasil diaktifkan.");
+            return true;
+        }
+        Toast.makeText(this, "Aktifkan 'Android Auto Server' di pengaturan Aksesibilitas", Toast.LENGTH_LONG).show();
+        AccessibilityHelper.openAccessibilitySettings(this);
+        return false;
     }
 
     private void setupWidgetPinning() {
@@ -226,6 +312,7 @@ public class MainActivity extends Activity {
         super.onResume();
         mIsPollingActive = true;
         mHandler.post(mStatusChecker);
+        loadBondedBluetoothDevices();
     }
 
     @Override
@@ -268,17 +355,6 @@ public class MainActivity extends Activity {
 
         // Sinkronisasi status aplikasi ke homescreen widget secara langsung
         HeadUnitWidgetProvider.updateAllWidgetsDirect(this, isRunning);
-    }
-
-    private boolean checkAccessibility() {
-        if (!HeadUnitAccessibilityService.isRunning()) {
-            Toast.makeText(this, "Aktifkan 'Android Auto Server' di pengaturan Aksesibilitas", Toast.LENGTH_LONG).show();
-            try {
-                startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-            } catch (Exception ignored) {}
-            return false;
-        }
-        return true;
     }
 
     private void addLog(String message) {

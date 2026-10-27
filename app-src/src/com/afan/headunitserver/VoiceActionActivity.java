@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.Settings;
 import android.widget.Toast;
 
 public class VoiceActionActivity extends Activity {
@@ -24,16 +23,6 @@ public class VoiceActionActivity extends Activity {
     }
 
     private void handleVoiceCommand(Intent intent) {
-        if (!HeadUnitAccessibilityService.isRunning()) {
-            Toast.makeText(this, "Aktifkan 'Android Auto Server' di Aksesibilitas terlebih dahulu", Toast.LENGTH_LONG).show();
-            try {
-                Intent settingsIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                settingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(settingsIntent);
-            } catch (Exception ignored) {}
-            return;
-        }
-
         boolean isStart = false;
         boolean isStop = false;
 
@@ -69,12 +58,21 @@ public class VoiceActionActivity extends Activity {
             }
         }
 
+        // Pastikan aksesibilitas siap atau dapat diaktifkan
+        if (!HeadUnitAccessibilityService.isRunning() && !AccessibilityHelper.isServiceEnabledInSettings(this)) {
+            if (!AccessibilityHelper.enableService(this)) {
+                Toast.makeText(this, "Aktifkan 'Android Auto Server' di Aksesibilitas", Toast.LENGTH_LONG).show();
+                AccessibilityHelper.openAccessibilitySettings(this);
+                return;
+            }
+        }
+
         if (isStop) {
             Toast.makeText(this, "⏹ Mematikan Head Unit Server Mobil...", Toast.LENGTH_SHORT).show();
             HeadUnitAccessibilityService.triggerStop(this);
             notifyWidget();
         } else {
-            // Default to start if unspecified or requested
+            // Default: Nyalakan server
             Toast.makeText(this, "🚗 Menyalakan Head Unit Server Mobil...", Toast.LENGTH_SHORT).show();
             HeadUnitAccessibilityService.triggerStart(this);
             notifyWidget();

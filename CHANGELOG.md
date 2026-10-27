@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.0] - 2026-10-26
+
+### Added
+- **Kontrol Dinamis Lifecycle Layanan Aksesibilitas (Dynamic Accessibility Control):**
+  - Membuat `AccessibilityHelper.java` untuk memanipulasi `Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES` dan `Settings.Secure.ACCESSIBILITY_ENABLED` via `WRITE_SECURE_SETTINGS`.
+  - Mengaktifkan layanan aksesibilitas secara otomatis saat perintah nyalakan server diberikan (UI, widget, voice command).
+  - Menonaktifkan layanan aksesibilitas secara otomatis via `disableSelf()` dan pembersihan `Settings.Secure` saat perintah matikan server diberikan, mencegah notifikasi sistem aktif terus-menerus dan menjaga kompatibilitas aplikasi perbankan.
+- **Riwayat Perangkat Bluetooth Lengkap (Paired & Connected History):**
+  - Mengambil seluruh daftar perangkat Bluetooth yang pernah dipasangkan (*bonded*) ke perangkat menggunakan `BluetoothAdapter.getBondedDevices()`.
+  - Mendukung pembacaan nama alias/kustom perangkat (`BluetoothDevice.getAlias()`) di samping nama bawaan (`getName()`).
+  - Cache persisten di `SharedPreferences` (`cached_bt_devices`) yang diperbarui secara otomatis setiap kali ada event koneksi Bluetooth baru (`ACTION_ACL_CONNECTED`).
+  - Menambahkan tombol **"🔄 Segarkan"** (`btn_refresh_bt`) pada UI `activity_main.xml` untuk memuat ulang daftar Bluetooth paired secara instan.
+- **Kompilasi & Pemasangan:**
+  - Build rilis baru `outputs/AndroidAutoServer-v1.6.0.apk` (`versionCode 9`, `versionName 1.6.0`).
+  - Sukses dipasang ke Samsung Galaxy S26 Ultra via wireless ADB dengan izin `WRITE_SECURE_SETTINGS` aktif.
+
 ## [1.5.0] - 2026-10-26
 
 ### Added
